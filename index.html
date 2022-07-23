@@ -239,7 +239,9 @@
 								$('#hitokoto').removeClass('loading');
 								$('#hitokotobtntext').removeClass('sr-only');
 								let hitokoto = data.hitokoto;
-								generateToast.toast({'message':hitokoto, 'type':type[parseInt(Math.random()*(type.length+1),10)]});
+								let option = getOption();
+								option = $.extend({}, option, {'message':hitokoto, 'type':type[parseInt(Math.random()*(type.length+1),10)]})
+								generateToast.toast(option);
 							},
 							'error':function(){
 								$('#hitokoto').removeClass('loading');
@@ -357,6 +359,14 @@
 						<option>800</option>
 						<option>1500</option>
 						<option>3000</option>
+					</select>
+				</div>
+				<div class="row"  id="autoHideDelay">
+					<label class="col-6 left" for="autoHideDelay">autoHideDelay</label>
+					<select class="form-select show col-6 right" id="autoHideDelay">
+						<option>3000</option>
+						<option>5000</option>
+						<option>10000</option>
 					</select>
 				</div>
 				<div class="row">
