@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Toast测试</title>
+		<link type="text/css" rel="stylesheet" href="./css/myukitoast.css" />
+		<script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
+		<script type="text/javascript" src="./js/myukitoast.js"></script>
+	</head>
+	<style>
+		.container {
+			width: 40%;
+			margin: 1rem;
+		}
+
+		.block-content {
+			display: flex;
+			flex-direction: column;
+			border: 1px solid #747d8c;
+			border-radius: 8px;
+			box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.2);;
+		}
+
+		.form-select {
+			display: block;
+			/* width: 100%; */
+			padding: .375rem 2.25rem .375rem .75rem;
+			-moz-padding-start: calc(0.75rem - 3px);
+			font-size: 1rem;
+			font-weight: 400;
+			line-height: 1.5;
+			color: #212529;
+			background-color: #fff;
+			background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+			background-repeat: no-repeat;
+			background-position: right .75rem center;
+			background-size: 16px 12px;
+			border: 1px solid #ced4da;
+			border-radius: .25rem;
+			transition: border-color .25s ease-in-out, box-shadow .25s ease-in-out;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			cursor: pointer;
+		}
+		.btn:hover{
+			  background-color: #747d8c;
+			  text-decoration: none;
+		}
+		.row {
+			display: -ms-flexbox;
+			display: flex;
+			-ms-flex-wrap: nowrap;
+			flex-wrap: nowrap;
+			margin-right: -15px;
+			margin-left: -15px;
+			align-items: center;
+			justify-content: center;
+			transition: all .25s ease-in-out; 
+		}
+		.row:hover{
+			transform: translateY(-2px);
+		}
+		.col-6 {
+			-ms-flex: 0 0 50%;
+			flex: 0 0 50%;
+			max-width: 50%;
+		}
+
+		.col-2 {
+			-ms-flex: 0 0 16.6%;
+			flex: 0 0 16.6%;
+			max-width: 16.6%;
+		}
+
+		.row label {
+			border: 1px solid #ced4da;
+			line-height: 1.5;
+			padding: .375rem;
+			color: white;
+			background-color: #2f3542;
+		}
+
+		.row input {
+			/* width: 100%; */
+			padding: 8px;
+			outline: none;
+			border: 1px solid #ced4da;
+			border-radius: 5px;
+			flex: 1 1 auto;
+		}
+
+		.left {
+			border-top-left-radius: .25rem;
+			border-bottom-left-radius: .25rem;
+		}
+
+		.right {
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
+
+		.btn {
+			color: #fff;
+			text-transform: uppercase;
+			letter-spacing: .0625rem;
+			font-weight: 700;
+			padding: .625rem 1.5rem;
+			font-size: .875rem;
+			line-height: 1.5;
+			border-radius: .25rem;
+			background-color: #343a40;
+			border: none;
+			box-shadow: 0 0.125rem 0.75rem rgb(18 20 22 / 25%);
+			cursor: pointer;
+			flex: 1 0 auto;
+			margin-bottom: .5rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.btn-primary {
+			background-color: #2f3542;
+		}
+		.btn-secondary{
+			background-color: white;
+			color: #2f3542;
+		}
+		@-webkit-keyframes spinner-grow {
+		  0% {
+		    -webkit-transform: scale(0);
+		    transform: scale(0);
+		  }
+		  50% {
+		    opacity: 1;
+		    -webkit-transform: none;
+		    transform: none;
+		  }
+		}
+		
+		@keyframes spinner-grow {
+		  0% {
+		    -webkit-transform: scale(0);
+		    transform: scale(0);
+		  }
+		  50% {
+		    opacity: 1;
+		    -webkit-transform: none;
+		    transform: none;
+		  }
+		}
+		
+		.spinner-grow {
+		  display: none;
+		  width: 1rem;
+		  height: 1rem;
+		  vertical-align: -0.125em;
+		  background-color: currentColor;
+		  border-radius: 50%;
+		  opacity: 0;
+		  -webkit-animation: .75s linear infinite spinner-grow;
+		  animation: .75s linear infinite spinner-grow;
+		}
+		.loading .spinner-grow{
+			display: inline-block;
+		}
+		.sr-only {
+		  position: absolute;
+		  width: 1px;
+		  height: 1px;
+		  padding: 0;
+		  margin: -1px;
+		  overflow: hidden;
+		  clip: rect(0, 0, 0, 0);
+		  white-space: nowrap;
+		  border: 0;
+		}
+	</style>
+	<body>
+		<div id="myukitoast1"></div>
+		<script>
+			/**
+			 * MyukiToast是一个简单、美观、实例化创建的轻量级消息弹框（Toasts）插件
+			 * 作者：无聊的Myuki君
+			 * GitHub仓库：https://github.com/Uyukisan/MyukiToast
+			 * jQuery插件库：https://www.jq22.com/mem1320295
+			 * MyukiToast的详细使用方法可以看README文件，或者访问以上两个地址查看
+			 */
+		
+			// 如果需要自定义选择器，则必须在$(document).ready()内创建MyukiToast实例
+			// 如果没有提供选择器，则不需要在$(document).ready()内创建实例，比如let toastDemo = $MT()
+			$(document).ready(function() {
+				const type = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark']
+				// 创建一个定制的MyukiToast实例
+				let toastObj = $MT("#myukitoast1",{'position':'right', 'autoHide':false,'dismissible':true,'width':'40%','maxExist':15});
+				/**
+				 * $MT == MyukiToast;所以你可以这样创建实例，let toastObj = MyukiToast("#myukitoast1")
+				 * 你甚至可以不是用任何参数创建MyukiToast实例，let toastObj = $MT();toastObj.toast('HELLO WORLD');
+				 * 当toast()方法的参数为空时，会弹出默认的message，当只有一个字符串参数时，会把这个字符串当message弹出；
+				 * toast()方法可以通过传入不同的参数实现定制的消息弹框，定制的MyukiToast在创建时传入的参数是所有弹框的基本属性，
+				 * 基本属性可以部分覆盖，比如type、message、dismissible等，关键基本属性无法覆盖，比如width、position、z_index、top
+				*/
+				// 调用toast方法
+				toastObj.toast({'message':'MyukiToast的详细用法请阅读文件夹中的README文件','type':'primary'});
+				toastObj.toast({'message':'关键的基本属性(比如position)不会被覆盖','type':'dark'});
+				toastObj.toast({'message':'给单个弹框设置属性会覆盖MyukiToast实例的部分基本属性','type':'light'});
+				toastObj.toast({'message':'还可以设置动画等等','animation':'vibrate-1'});
+				toastObj.toast({'message':'设置关闭按钮的显示隐藏','type':'dark','dismissible':false});
+				toastObj.toast({'message':'比如设置字体大小','type':'info','fontSize':'12px'});
+				toastObj.toast({'message':'可以给单独的一个弹框(Toast)设置属性','type':'danger'});
+				toastObj.toast({'message':'接着点击添加消息弹框的按钮','type':'success'});
+				toastObj.toast({'message':'然后点击左侧底部按钮获取MyukiToast实例','type':'secondary'});
+				toastObj.toast({'message':'这将为所有的消息弹框设置基本属性','type':'warning'});
+				toastObj.toast('首先点击各个select设置实例对象的参数');
+				toastObj.toast({'message':'MyukiToast是一个简单、美观、实例化创建的轻量级消息弹框（Toasts）插件。','type':'info', 'animation':'normal-shake'});
+				toastObj.toast({'animation': 'heartbeat'});
+				
+				$("#createObj").on('click',function(){
+					let option = getOption();
+					let generateToast = $MT(option);
+					toastObj.toast({'message':'成功生成一个MyukiToast实例:' + generateToast.getDomName(),'type':'success'})
+					$('#createObj').fadeOut();
+					$('#position,#width,#top').parent().remove();
+					$('#addToast,#hitokoto').fadeIn();
+					$('#addToast').on('click',function(){
+						let option = getOption();
+						generateToast.toast(option);
+					});
+					$('#hitokoto').on('click', function(){
+						$('#hitokotobtntext').addClass('sr-only');
+						$('#hitokoto').addClass('loading');
+						$.ajax({
+							'url': 'https://v1.hitokoto.cn/',
+							'timeout': 15000,
+							'dataType': 'JSON',
+							'success': function(data){
+								$('#hitokoto').removeClass('loading');
+								$('#hitokotobtntext').removeClass('sr-only');
+								let hitokoto = data.hitokoto;
+								generateToast.toast({'message':hitokoto, 'type':type[parseInt(Math.random()*(type.length+1),10)]});
+							},
+							'error':function(){
+								$('#hitokoto').removeClass('loading');
+								$('#hitokotobtntext').removeClass('sr-only');
+								generateToast.toast({'message':'数据请求失败!','type':'danger'});
+							}
+							
+						});
+					});
+				});
+				
+				$("#autoHideAnimation").change(function(){
+					$(this).val() == 'originFade' ? $('#originFadeDur').fadeIn() : $('#originFadeDur').fadeOut();
+				
+				});
+			});
+			function getOption(){
+				let len = $("select").length;
+				let option = {"message": "️⛄️欢迎使用Myuki Toast👏"};
+				for(let i=0; i<len;i++){
+					let name = $("select").eq(i).attr('id');
+					let value = $("select").eq(i).val();
+					value == 'true' || value == 'false' ? option[name] = eval(value):option[name] = value;
+				}
+				console.log(option);
+				return option;
+			}
+			
+
+		</script>
+		<div class="container">
+			<div class="block-content">
+				<div class="row">
+					<h3>⛄️MyukiToast设置面板</h3>
+				</div>
+				<div class="row">
+					<label class="col-6 left" for="type">type</label>
+					<select class="form-select show col-6 right" id="type">
+						<option>primary</option>
+						<option>secondary</option>
+						<option>success</option>
+						<option>danger</option>
+						<option>warning</option>
+						<option>info</option>
+						<option>light</option>
+						<option>dark</option>
+					</select>
+				</div>
+				<div class="row">
+					<label class="col-6 left" for="position">position</label>
+					<select class="form-select show col-6 right" id="position">
+						<option>center</option>
+						<option>left</option>
+						<option>right</option>
+					</select>
+				</div>
+				<div class="row">
+					<label class="col-6 left" for="width">width</label>
+					<select class="form-select show col-6 right" id="width">
+						<option>30%</option>
+						<option>40%</option>
+						<option>25%</option>
+						<option>50%</option>
+						<option>75%</option>
+						<option>100%</option>
+					</select>
+				</div>
+				<div class="row">
+					<label class="col-6 left" for="top">top</label>
+					<select class="form-select show col-6 right" id="top">
+						<option>1rem</option>
+						<option>2rem</option>
+					</select>
+				</div>
+				<div class="row">
+					<label class="col-6 left" for="dismissible">dismissible</label>
+					<select class="form-select show col-6 right" id="dismissible">
+						<option>true</option>
+						<option>false</option>
+					</select>
+				</div>
+				<div class="row">
+					<label class="col-6 left" for="animation">animation</label>
+					<select class="form-select show col-6 right" id="animation">
+						<option>heartbeat</option>
+						<option>normal-shake</option>
+						<option>jello-horizontal</option>
+						<option>wobble-hor-bottom</option>
+						<option>vibrate-1</option>
+						<option>noanimation</option>
+					</select>
+				</div>
+				<div class="row">
+					<label class="col-6 left" for="autoHide">autoHide</label>
+					<select class="form-select show col-6 right" id="autoHide">
+						<option>true</option>
+						<option>false</option>
+					</select>
+				</div>
+				<div class="row">
+					<label class="col-6 left" for="autoHideAnimation">autoHideAnimation</label>
+					<select class="form-select show col-6 right" id="autoHideAnimation">
+						<option>scale-out-center</option>
+						<option>fade-out</option>
+						<option>originFade</option>
+						<option>rotate-out-center</option>
+						<option>puff-out-center</option>
+						<option>slide-out-top</option>
+						<option>nohideanimation</option>
+					</select>
+				</div>
+				<div class="row" style="display: none;" id="originFadeDur">
+					<label class="col-6 left" for="originFadeDuration">originFadeDuration</label>
+					<select class="form-select show col-6 right" id="originFadeDuration">
+						<option>800</option>
+						<option>1500</option>
+						<option>3000</option>
+					</select>
+				</div>
+				<div class="row">
+					<label class="col-6 left" for="fontSize">fontSize</label>
+					<select class="form-select show col-6 right" id="fontSize">
+						<option></option>
+						<option>12px</option>
+						<option>20px</option>
+						<option>28px</option>
+					</select>
+				</div>
+				<div class="row">
+					<label class="col-6 left" for="fontFamily">fontFamily</label>
+					<select class="form-select show col-6 right" id="fontFamily">
+						<option></option>
+						<option>Serif</option>
+						<option>Sans-serif</option>
+						<option>Monospace</option>
+						<option>Cursive</option>
+						<option>Fantasy</option>
+					</select>
+				</div>
+				<div class="row">
+					<button id="createObj" class="btn btn-primary">点击获取Myuki Toast实例</button>
+				</div>
+				<div  class="row" >
+					<button id="addToast" class="btn btn-primary" style="display: none;">添加一个消息弹窗(Toast)</button>
+				</div>
+				<div  class="row"  >
+					<button id="hitokoto" class="btn btn-secondary" style="display: none;margin-top: .5rem;" title="https://developer.hitokoto.cn">
+						<span id="hitokotobtntext">一言API测试</span><span class="spinner-grow"></span></button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
