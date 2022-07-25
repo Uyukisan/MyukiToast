@@ -18,7 +18,7 @@
 
 </div>
 <script>
-	document.ready(function(){
+	$(document).ready(function(){
   
   	// 创建一个MyukiToast的实例
   
@@ -42,7 +42,7 @@
 
 </div>
 <script>
-	document.ready(function(){
+	$(document).ready(function(){
   
   	// 首先创建一个MyukiToast的实例
   
@@ -118,38 +118,48 @@
   	// 高级用法
   	toastObj.toast({
 			"type": 'danger',
-        /* 默认值: primary
-        消息弹框的类型，包括以下几种：
-        primary, secondary, success, danger,
-        warning, info, light, dark
-        */
-        "message": '⛄️欢迎使用Myuki Toast👏', 
-        /*默认的消息，创建MyukiToast实例后，调用toast()方法时，
-        如果没有提供消息，将会使用默认的消息
-        执行下面的语句将会弹出消息："⛄️欢迎使用Myuki Toast👏"
-        toastObj.toast()
-        */
-        "dismissible": true, 
-        /* 默认值: false
-        是否显示关闭按钮
-        */
-        "fade": true, 
-        /* 默认值: true
-        消息自动隐藏时，是否使用fadeOut的效果
-        */
-        "fadeDelay": 1000, 
-        /* 默认值: 800
-        fadeOut的时长
-        */
-        "autoHide": true,
-        /* 默认值: true
-        消息弹框是否自动隐藏，如果将autoHide设置为false，请务必
-        将dismissible设置为true
-        */
-        "autoHideDelay": 5000,
-        /* default: 3000
-        自动隐藏的时长
-        */
+			/* 默认值: primary
+			消息弹框的类型，包括以下几种：
+			primary, secondary, success, danger,
+			warning, info, light, dark
+			*/
+			"message": '⛄️欢迎使用Myuki Toast👏', 
+			/*默认的消息，创建MyukiToast实例后，调用toast()方法时，
+			如果没有提供消息，将会使用默认的消息
+			执行下面的语句将会弹出消息："⛄️欢迎使用Myuki Toast👏"
+			toastObj.toast()
+			*/
+			"dismissible": true, 
+			/* 默认值: false
+			是否显示关闭按钮
+			*/
+			"animation": 'heartbeat', 
+			/* 默认值: noanimation
+			消息弹框的动画
+			heartbeat, normal-shake, jello-horizontal, 
+			wobble-hor-bottom, vibrate-1, noanimation
+			你也可是自己设计css动画
+			*/
+			"autoHide": true,
+			/* 默认值: true
+			消息弹框是否自动隐藏，如果将autoHide设置为false，请务必
+			将dismissible设置为true
+			*/
+			"autoHideAnimation": 'originFade',
+			/* 默认值: nohideanimation
+			消息弹框自动隐藏的动画
+			scale-out-center, fade-out, originFade, rotate-out-center,
+			puff-out-center, slide-out-top, nohideanimation
+			你同样可以自己设计css动画
+			*/
+			"originFadeDuration": 1000,
+			/* 默认值: 800
+			只对动画 'originFade' 有效，原生fadeOut的时长
+			*/
+			"autoHideDelay": 5000,
+			/* 默认值: 3000
+			弹框自动隐藏的延迟时间
+			*/
       	"color": '#666',
       	"fontSize": '16px',
       	"fontFamily": 'sans-serif'
