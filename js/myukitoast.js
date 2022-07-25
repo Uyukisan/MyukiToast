@@ -86,7 +86,13 @@
 			toastOne.css({
 				'color': onesetting.color,
 				'font-size': onesetting.fontSize,
-				'font-family': onesetting.fontFamily
+				'font-family': onesetting.fontFamily,
+				'top':$(window).scrollTop()
+			});
+			$(window).scroll(function(){
+				toastOne.css({
+					'top':$(window).scrollTop()
+				});
 			});
 			onesetting.dismissible == true ? toastOne.addClass('dismissible') : toastOne.removeClass('dismissible');
 			$(dom).prepend(toastOne);

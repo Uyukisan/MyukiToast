@@ -18,7 +18,7 @@ Push notifications to your visitors with a toast, a lightweight and easily custo
 
 </div>
 <script>
-	document.ready(function(){
+	$(document).ready(function(){
 		let toastObj = $MT("#toastDemo") 
     /*or toastObj = MyukiToast("#toastDemo");
 
@@ -37,7 +37,7 @@ Push notifications to your visitors with a toast, a lightweight and easily custo
 
 </div>
 <script>
-	document.ready(function(){
+	$(document).ready(function(){
 		let toastObj = $MT(
       "#toastDemo", 
       /*selector: id | className | tag
